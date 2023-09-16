@@ -26,5 +26,17 @@ def keyword_extractor():
         return ErrorResponse(error_message, 500)
 ##---------Kyeword Extraction End-----------------##
 
+## -----------plagiarism checker starts---------------##
+
+@app.post('/plagiarism-checker')
+def plagiarism_checker():
+    request_data = request.get_json()
+    sentence_1 = request_data['sentence_1']
+    sentence_2 = request_data['sentence_2']
+    return sentence_1
+
+## -----------plagiarism checker ends---------------##
+
+
 if __name__ == '__main__':
     app(app, host='0.0.0.0', port=5000)
