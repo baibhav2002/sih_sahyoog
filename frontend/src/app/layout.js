@@ -1,6 +1,8 @@
 import Header from "@/components/Header";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import { isAuthenticated } from "@/helpers/isAuthenticated";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,11 +12,11 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const isToken = true;
-
+  const isToken = isAuthenticated();
   return (
     <html lang="en">
       <body className={inter.className + " selection:bg-purple-300 bg-white"}>
+        <Toaster position="top-center" />
         <div>
           <div
             className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-20"
