@@ -2,6 +2,8 @@ from flask import Flask, request
 from keybert import KeyBERT
 from sentence_transformers import SentenceTransformer
 from helper.helper import ErrorResponse, KeywordResponse
+from helper.helper import ApiResponse
+from services.services import check_plagiarism
 
 app = Flask(__name__)
 
@@ -27,13 +29,21 @@ def keyword_extractor():
 ##---------Kyeword Extraction End-----------------##
 
 ## -----------plagiarism checker starts---------------##
-
 @app.post('/plagiarism-checker')
 def plagiarism_checker():
-    request_data = request.get_json()
-    sentence_1 = request_data['sentence_1']
-    sentence_2 = request_data['sentence_2']
-    return sentence_1
+    try:
+        request_data = request.get_json()
+        sentence_1 = request_data['sentence_1']
+        sentence_2 = request_data['sentence_2']
+        plagiarism_score,is_plagiarism,current_plagiarism_stat = check_plagiarism(sentence_1, sentence_2)
+        return ApiResponse(plagiarism_score,is_plagiarism,current_plagiarism_stat)
+    except KeyError as e:
+        error_message = f"KeyError: '{str(e)}'"
+        return ErrorResponse(error_message, 400)
+
+    except Exception as e:
+        error_message = str(e)
+        return ErrorResponse(error_message, 500)
 
 ## -----------plagiarism checker ends---------------##
 
