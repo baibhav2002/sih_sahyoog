@@ -1,8 +1,8 @@
 from flask import Flask, request
 from keybert import KeyBERT
 from sentence_transformers import SentenceTransformer
+from helper.helper import ErrorResponse, KeywordResponse
 
-from llm_model.helper.helper import ErrorResponse, KeywordResponse
 app = Flask(__name__)
 
 ##---------Kyeword Extraction Start-----------------##
