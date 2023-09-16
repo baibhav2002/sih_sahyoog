@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 import { IoIosNotifications } from "react-icons/io";
 import { IoCreate } from "react-icons/io5";
+import Sidebar from "./Sidebar";
 
 const Header = ({ isAuthenticated }) => {
   const filters = [
@@ -36,12 +37,19 @@ const Header = ({ isAuthenticated }) => {
   ];
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [toggler, setToggler] = useState(false);
 
   return (
     <div className="w-full z-[999] sticky top-0 left-0 backdrop-blur-xl  px-5 md:px-10 py-5 border-b">
+      <Sidebar toggler={toggler} setToggler={setToggler} />
+
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-5">
-          <button>
+          <button
+            onClick={() => {
+              setToggler(true);
+            }}
+          >
             <AiOutlineMenu size={25} />
           </button>
           <div>
