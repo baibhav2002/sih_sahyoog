@@ -1,0 +1,8 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "SIH 2023 Hackerwar ",
+  "main": "index.js",
+  "author": "Subhranshu Choudhury, Pawan Kumar",
+  "license": "MIT"
+}
