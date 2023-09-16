@@ -4,5 +4,8 @@
   "description": "SIH 2023 Hackerwar ",
   "main": "index.js",
   "author": "Subhranshu Choudhury, Pawan Kumar",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
 }
