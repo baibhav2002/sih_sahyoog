@@ -28,7 +28,7 @@ const Page = () => {
       })
       .catch((error) => console.log("error", error));
   };
-
+  //
   useEffect(() => {
     getALlApprovals();
   }, []);
