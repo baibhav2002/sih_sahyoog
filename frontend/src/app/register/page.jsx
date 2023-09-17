@@ -147,7 +147,7 @@ const Page = () => {
       const data = await response.json();
       console.log(response, data);
       if (response.status === 301 || response.status === 200) {
-        console.log(collegeData.email);
+        // console.log(collegeData.email);
         const otpResponse = await fetch(
           `${process.env.NEXT_PUBLIC_HOST_SERVER}/api/institute/auth/send-otp`,
           {

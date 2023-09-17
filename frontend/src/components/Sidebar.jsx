@@ -97,7 +97,7 @@ const Sidebar = ({ toggler, setToggler }) => {
             <span className=" text-2xl">FEEDS</span>
           </button>
         </Link>
-        <Link href={"/feeds"}>
+        <Link href={"/approval-requests"}>
           <button
             className={
               currentPath === "/approval-requests"
