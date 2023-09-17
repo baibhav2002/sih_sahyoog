@@ -8,20 +8,13 @@ import { IoIosNotifications } from "react-icons/io";
 import { IoCreate } from "react-icons/io5";
 import Sidebar from "./Sidebar";
 import Editor from "./Editor";
+import PdfPreviewer from "./PdfPreviewer";
 
 const Header = ({ isAuthenticated }) => {
   const filters = [
     {
       name: "Keywords",
-      options: [
-        "Blockchain",
-        "Cyber Security",
-        "AI/ML",
-        " IoT",
-        "Web Development ",
-        "Web3 ",
-        "Data Science",
-      ],
+      options: ["title", "description", "category", "publisher", "author"],
     },
     {
       name: "domains",
@@ -46,6 +39,12 @@ const Header = ({ isAuthenticated }) => {
   return (
     <div className="w-full z-[999] sticky top-0 left-0 backdrop-blur-xl  px-5 md:px-10 py-5 border-b">
       <Sidebar toggler={toggler} setToggler={setToggler} />
+      <PdfPreviewer
+        pdfSrc={pdfSrc}
+        setPdfSrc={setPdfSrc}
+        pdfPreviewerToggler={pdfPreviewerToggler}
+        setPdfPreviewerToggler={setPdfPreviewerToggler}
+      />
       <Editor
         pdfSrc={pdfSrc}
         setPdfSrc={setPdfSrc}
@@ -104,7 +103,7 @@ const Header = ({ isAuthenticated }) => {
                                 setSearchTerm(
                                   searchTerm.trim() === ""
                                     ? option
-                                    : searchTerm + ":" + option.trim()
+                                    : option.trim() + ","
                                 );
                               }
                             }}
