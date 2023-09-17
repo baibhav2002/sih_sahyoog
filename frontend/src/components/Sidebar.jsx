@@ -1,19 +1,65 @@
 "use client";
-
+import { getCookie } from "cookies-next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { CgFeed } from "react-icons/cg";
 import { IoIosNotifications } from "react-icons/io";
 import { SiAuth0 } from "react-icons/si";
+import { PiStudentFill } from "react-icons/pi";
+import { BsFillBuildingsFill } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 import { IoSettings } from "react-icons/io5";
 
 const Sidebar = ({ toggler, setToggler }) => {
   const router = useRouter();
   const currentPath = usePathname();
-  //
+
+  const nav_links = [
+    {
+      name: "Feeds",
+      path: "/feeds",
+      icon: <CgFeed size={32} />,
+    },
+    {
+      name: "Approval Requests",
+      path: "/approval-requests",
+      icon: <SiAuth0 size={27} />,
+    },
+    {
+      name: "Notifications",
+      path: "/notifications",
+      icon: <IoIosNotifications size={34} />,
+    },
+    // {
+    //   name: role === "ROLE_STUDENT" && "My Students",
+    //   path: role === "ROLE_STUDENT" && "/my-students",
+    //   icon: role === "ROLE_STUDENT" && <PiStudentFill size={34} />,
+    // },
+    // {
+    //   name: role === "ROLE_INSTITUTE" && "My College",
+    //   path: role === "ROLE_INSTITUTE" && "/my-college",
+    //   icon: role === "ROLE_INSTITUTE" && <BsFillBuildingsFill size={34} />,
+    // },
+  ];
+  const [isStudent, setIsStudent] = useState(false);
+  const [isCollege, setIsCollege] = useState(false);
+  useEffect(() => {
+    const data = JSON.parse(
+      decodeURI(
+        getCookie("sambandh_institute_data") ||
+          getCookie("sambandh_student_data") ||
+          "{}"
+      )
+    );
+    const role = data?.roles?.[0] || "";
+    if (role === "ROLE_STUDENT") {
+      setIsStudent(true);
+    } else if (role === "ROLE_INSTITUTE") {
+      setIsCollege(true);
+    }
+  }, []);
   return (
     <div
       className={
@@ -79,6 +125,40 @@ const Sidebar = ({ toggler, setToggler }) => {
             <span className=" text-2xl">Notifications</span>
           </button>
         </Link>
+        {isStudent && (
+          <button
+            onClick={() => {
+              router.push("/my-college");
+            }}
+            className={
+              currentPath === "/my-college"
+                ? "w-full space-x-4 p-3 hover:bg-purple-300 transition-all flex font-[300] rounded-md items-center bg-purple-200 mb-3"
+                : "w-full space-x-4 p-3 hover:bg-purple-300 transition-all flex font-[300] rounded-md items-center mb-3"
+            }
+          >
+            <span>
+              <BsFillBuildingsFill size={34} />
+            </span>
+            <span className="text-2xl">My College</span>
+          </button>
+        )}
+        {isCollege && (
+          <button
+            onClick={() => {
+              router.push("/my-college");
+            }}
+            className={
+              currentPath === "/my-students"
+                ? "w-full space-x-4 p-3 hover:bg-purple-300 transition-all flex font-[300] rounded-md items-center bg-purple-200 mb-3"
+                : "w-full space-x-4 p-3 hover:bg-purple-300 transition-all flex font-[300] rounded-md items-center mb-3"
+            }
+          >
+            <span>
+              <PiStudentFill size={34} />
+            </span>
+            <span className="text-2xl">My Students</span>
+          </button>
+        )}
 
         <div className="w-full left-0 p-5 absolute bottom-0">
           <button

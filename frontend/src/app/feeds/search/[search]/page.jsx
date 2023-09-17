@@ -3,20 +3,28 @@ import Cards from "@/components/college/Cards";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-const Page = () => {
+const Page = ({ params }) => {
+  const { search } = params;
   const [Feeds, setfeeds] = useState([]);
+
   const getFeeds = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_HOST_SERVER}/api/project/search?limit=10`
-      );
-      const data = await response.json();
-      setfeeds(data);
-      console.log(response, data);
-    } catch (error) {
-      console.log("error:", error);
-      setfeeds([]);
-    }
+    // try {
+    let url = `${process.env.NEXT_PUBLIC_HOST_SERVER}/api/project-request/search?title=Projects}`;
+
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        setfeeds(data);
+        console.log(data);
+      })
+      .catch((err) => console.error("error:" + err));
+    // const data = await response.json();
+    // setfeeds(data);
+    // console.log(response, data);
+    // } catch (error) {
+    //   console.log("error:", error);
+    //   setfeeds([]);
+    // }
   };
   useEffect(() => {
     getFeeds();
