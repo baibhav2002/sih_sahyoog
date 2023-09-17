@@ -87,6 +87,9 @@ db.mongoose
 
 require("./app/routes/institute-auth.route")(app);
 require("./app/routes/student-auth.route")(app);
+require("./app/routes/create-project-student.route")(app);
+require("./app/routes/project-request.route")(app);
+require("./app/routes/create-project-institute.route")(app);
 
 const PORT = process.env.PORT || 6000;
 
