@@ -238,8 +238,8 @@ const Page = () => {
   };
 
   return (
-    <div className="w-full relative grid place-items-center min-h-[90vh]">
-      <div className="w-[95%] transition-all duration-500 md:w-[55%] relative overflow-hidden  bg-white border shadow-md rounded-md flex items-center justify-center">
+    <div className="w-full relative grid place-items-center min-h-[80vh]">
+      <div className="w-[95%] transition-all duration-500 md:w-[50%] relative overflow-hidden  bg-white border shadow-md rounded-md flex items-center justify-center">
         <div
           className={
             !mobileToggler ? "md:w-1/2 md:block" : "md:w-1/2 hidden md:block"
@@ -419,7 +419,6 @@ const Page = () => {
                 </p>
                 <p className="text-center">
                   <button
-                    type="button"
                     onClick={() => {
                       setToggleForm(true);
                     }}
@@ -645,7 +644,6 @@ const Page = () => {
                 </p>
                 <p className="text-center">
                   <button
-                    type="button"
                     onClick={() => {
                       setToggleForm(false);
                     }}

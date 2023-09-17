@@ -1,8 +1,10 @@
 import Header from "@/components/Header";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import { cookies } from "next/headers";
 import { isAuthenticated } from "@/helpers/isAuthenticated";
 import { Toaster } from "react-hot-toast";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,6 +15,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   const isToken = isAuthenticated();
+  // console.log(process.env.HOST_SERVER);
+  // console.log(isToken);
+
   return (
     <html lang="en">
       <body className={inter.className + " selection:bg-purple-300 bg-white"}>

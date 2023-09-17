@@ -132,6 +132,56 @@ const Editor = ({
   const createPost = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
+
+      if (
+        title === "" ||
+        description === "" ||
+        urls === "" ||
+        authors === "" ||
+        imageSrc === "" ||
+        pdfSrc === ""
+      ) {
+        alert("Please fill all the fields");
+        return;
+      }
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_HOST_SERVER}/api/institute/project/create-project`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-access-token": token,
+          },
+          body: JSON.stringify({
+            topic: title,
+            title,
+            description,
+            links: [
+              {
+                source: urls,
+              },
+            ],
+            authors,
+            contributors,
+            category: searchTerm,
+            image: imageSrc,
+            projectFile: pdfSrc,
+          }),
+        }
+      );
+      const data = await response.json();
+      // console.log(response, data);
+
+      if (response.status === 200) {
+        window.location.href = `/feeds/${data.id}`;
+        toast.success(data.message);
+        return;
+      }
+      toast(data.message, {
+        icon: "⚠️",
+      });
     } catch (error) {
       console.log("login page error:", error);
     } finally {
@@ -141,12 +191,62 @@ const Editor = ({
   const createPostStudent = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
+      if (
+        title === "" ||
+        description === "" ||
+        urls === "" ||
+        authors === "" ||
+        imageSrc === "" ||
+        pdfSrc === ""
+      ) {
+        alert("Please fill all the fields");
+        return;
+      }
+      //api/student/project/create-project
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_HOST_SERVER}/api/student/project/create-project`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-access-token": token,
+          },
+          body: JSON.stringify({
+            topic: title,
+            title: title,
+            description: description,
+            links: [
+              {
+                source: urls,
+              },
+            ],
+            authors: authors,
+            contributors: contributors,
+            category: searchTerm,
+            image: imageSrc,
+            projectFile: pdfSrc,
+            personal: isPersonal,
+          }),
+        }
+      );
+      const data = await response.json();
+
+      if (response.status === 200) {
+        window.location.href = `/feeds/${data.id}`;
+        toast.success(data.message);
+        return;
+      }
+      toast(data.message, {
+        icon: "⚠️",
+      });
     } catch (error) {
       console.log("error:", error);
     } finally {
       setLoading(false);
     }
   };
+  // console.log(isPersonal);
 
   return (
     <div

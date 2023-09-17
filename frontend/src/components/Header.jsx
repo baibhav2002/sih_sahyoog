@@ -9,8 +9,11 @@ import { IoCreate } from "react-icons/io5";
 import Sidebar from "./Sidebar";
 import Editor from "./Editor";
 import PdfPreviewer from "./PdfPreviewer";
+import { useRouter } from "next/navigation";
 
 const Header = ({ isAuthenticated }) => {
+  const router = useRouter();
+
   const filters = [
     {
       name: "Keywords",
@@ -81,7 +84,14 @@ const Header = ({ isAuthenticated }) => {
                   setSearchTerm(e.target.value);
                 }}
               />
-              <span className="absolute right-1 inline-block cursor-pointer p-2 rounded-full hover:bg-purple-200 transition-all duration-300">
+              <span
+                onClick={() => {
+                  if (searchTerm.trim() !== "") {
+                    router.push(`/feeds/search/${searchTerm}`);
+                  }
+                }}
+                className="absolute right-1 inline-block cursor-pointer p-2 rounded-full hover:bg-purple-200 transition-all duration-300"
+              >
                 <AiOutlineSearch size={20} />
               </span>
             </span>
